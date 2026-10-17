@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scamshield</title>
+    <link rel="stylesheet" href="scam_shield_design.css">
+    <script defer src="scam_shield.js" ></script>
+    <div class="blobs">
+        <div class="blob blob1"></div>
+        <div class="blob blob2"></div>
+        <div class="blob blob3"></div>
+        <div class="blob blob4"></div>
+    </div>
+</head>
+<body>
+<div class="mix_background">
+<h1 id="Title">Scamshield</h1>
+<h2 id="below_title">Scan before you trust</h2>
+</div>
+<nav class="tabs">
+  <button class="tab" data-panel="link">Link Check</button>
+  <button class="tab" data-panel="text">Text / Email</button>
+  <button class="tab" data-panel="qr">QR Code</button>
+  <button class="tab" data-panel="news">News</button>
+  <button class="tab" data-panel="voice">Voice</button>
+  <button class="tab" data-panel="video">Video</button>
+</nav>
+
+<main>
+  <section class="panel active" id="panel-link">
+    <h2>Check a link</h2>
+    <input type="text" id="linkInput" placeholder="https://example.com">
+    <button class="btn" data-check="link" data-input="linkInput" data-results="linkResults">Check This Link</button>
+    <div id="linkResults" class="results"></div>
+  </section>
+
+  <section class="panel" id="panel-text">
+    <h2>Check a message</h2>
+    <textarea id="textInput" rows="6" placeholder="Paste the message here"></textarea>
+    <button class="btn" data-check="text" data-input="textInput" data-results="textResults">Check This Message</button>
+    <div id="textResults" class="results"></div>
+  </section>
+
+  <section class="panel" id="panel-qr">
+    <h2>Check a QR code</h2>
+    <input type="file" id="qrInput" accept="image/*">
+    <button class="btn" data-check="qr" data-input="qrInput" data-results="qrResults">Check This QR Code</button>
+    <div id="qrResults" class="results"></div>
+  </section>
+
+  <section class="panel" id="panel-news">
+    <h2>Check a news headline</h2>
+    <textarea id="newsInput" rows="5" placeholder="Paste a headline or article"></textarea>
+    <button class="btn" data-check="news" data-input="newsInput" data-results="newsResults">Check This Article</button>
+    <div id="newsResults" class="results"></div>
+  </section>
+
+  <section class="panel" id="panel-voice">
+    <h2>Check a voice message</h2>
+    <input type="file" id="voiceInput" accept="audio/*">
+    <button class="btn" data-check="voice" data-input="voiceInput" data-results="voiceResults">Analyze Recording</button>
+    <div id="voiceResults" class="results"></div>
+  </section>
+
+  <section class="panel" id="panel-video">
+    <h2>Check a video</h2>
+    <input type="file" id="videoInput" accept="video/*">
+    <button class="btn" data-check="video" data-input="videoInput" data-results="videoResults">Check This Video</button>
+    <div id="videoResults" class="results"></div>
+  </section>
+</main>
+</body>
+</html>
