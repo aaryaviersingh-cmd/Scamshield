@@ -46,7 +46,7 @@ def analyze():
         parts.append(types.Part.from_bytes(data=file.read(), mime_type=file.mimetype))
 
     response = client.models.generate_content(
-        model="gemini-2.5-flash",
+        model="gemini-3.8-flash",
         contents=parts,
         config=types.GenerateContentConfig(response_mime_type="application/json")
     )
@@ -56,4 +56,4 @@ def analyze():
     except json.JSONDecodeError:
         return jsonify({"error": "Could not read the AI's answer"}), 500
 
-app.run(port=5000)
+app.run(port=5001)
