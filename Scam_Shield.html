@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="mix_background">
-    <img src="scam_shield_logo.png" id="img">
+    <img src="scam_shield_logo.png" id="img" alt="Scamshield">
 </div>
 <nav class="tabs">
   <button class="tab active" data-panel="link">Link Check</button>
@@ -37,7 +37,12 @@
 
   <section class="panel" id="panel-qr">
     <h2>Check a QR code</h2>
-    <input type="file" id="qrInput" accept="image/*">
+    <label class="dropzone">
+      <div class="drop-title">Drag your QR code image here</div>
+      <div class="drop-sub">or <u>select a file</u></div>
+      <div class="drop-file"></div>
+      <input type="file" id="qrInput" accept="image/*">
+    </label>
     <button class="btn" data-check="qr" data-input="qrInput" data-results="qrResults">Check This QR Code</button>
     <div id="qrResults" class="results"></div>
   </section>
@@ -51,14 +56,24 @@
 
   <section class="panel" id="panel-voice">
     <h2>Check a voice message</h2>
-    <input type="file" id="voiceInput" accept="audio/*">
+    <label class="dropzone">
+      <div class="drop-title">Drag your voicemail recording here</div>
+      <div class="drop-sub">or <u>select a file</u></div>
+      <div class="drop-file"></div>
+      <input type="file" id="voiceInput" accept="audio/*">
+    </label>
     <button class="btn" data-check="voice" data-input="voiceInput" data-results="voiceResults">Analyze Recording</button>
     <div id="voiceResults" class="results"></div>
   </section>
 
   <section class="panel" id="panel-video">
     <h2>Check a video</h2>
-    <input type="file" id="videoInput" accept="video/*">
+    <label class="dropzone">
+      <div class="drop-title">Drag your video here</div>
+      <div class="drop-sub">or <u>select a file</u></div>
+      <div class="drop-file"></div>
+      <input type="file" id="videoInput" accept="video/*">
+    </label>
     <button class="btn" data-check="video" data-input="videoInput" data-results="videoResults">Check This Video</button>
     <div id="videoResults" class="results"></div>
   </section>
