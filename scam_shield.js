@@ -67,7 +67,7 @@ document.querySelectorAll('.btn').forEach(function (btn) {
     box.textContent = 'Taking a careful look...';
 
     try {
-      const res = await fetch('http://localhost:5000/analyze', { method: 'POST', body: form });
+      const res = await fetch('http://localhost:5001/analyze', { method: 'POST', body: form });
       const data = await res.json();
       if (data.error) {
         box.textContent = 'Oops, something went wrong on my end. Please try again.';
