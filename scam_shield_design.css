@@ -8,11 +8,13 @@
   --blue-pale: #EAF1FB;
   --orange: #F58220;
   --orange-deep: #C2570C;
-  --cream: #fDFCE8;
+  --cream: #f9f9f7;
 }
 #img{
   position: relative;
-  left:40%
+  left:40%;
+  width:600px;
+  height:auto;
 }
 
 body {
@@ -44,7 +46,7 @@ body {
   flex: 1;
   min-width: 0;
   position: relative;
-  background: none;
+  background:#E0F3FF;
   border: 3px solid transparent;
   border-bottom: none;
   border-radius: 22px 22px 0 0;
@@ -81,9 +83,14 @@ body {
 main {
   position: relative;
   z-index: 5;
-  max-width: 760px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 28px 24px 60px;
+  padding: 48px 40px 80px;
+}
+
+main h2 {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  margin: 0 0 20px;
 }
 
 .panel {
@@ -97,12 +104,17 @@ main {
 textarea,
 input[type=text] {
   width: 100%;
-  padding: 16px;
+  padding: 24px;
   font: inherit;
+  font-size: 1.3rem;
   color: var(--blue-dark);
   background: #fff;
   border: 2px solid #D7DEEA;
-  border-radius: 14px;
+  border-radius: 18px;
+}
+
+textarea {
+  min-height: 260px;
 }
 
 textarea:focus,
@@ -129,15 +141,15 @@ input[type=file]::file-selector-button {
 
 .btn {
   width: 100%;
-  margin-top: 12px;
-  padding: 18px;
-  background: var(--orange);
+  margin-top: 20px;
+  padding: 26px;
+  background:linear-gradient(to right,var(--orange),#f1b04c) ;
   color: var(--blue-dark);
   border: none;
-  border-radius: 14px;
+  border-radius: 18px;
   font: inherit;
   font-weight: 800;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   cursor: pointer;
 }
 
@@ -150,10 +162,51 @@ input[type=file]::file-selector-button {
   transform: translateY(1px);
 }
 
+.dropzone{
+  position:relative;
+  display:block;
+  text-align:center;
+  padding:90px 20px;
+  background:#FBF1E3;
+  border:3px dashed #E2B97C;
+  border-radius:24px;
+  cursor:pointer;
+}
+.dropzone:hover{
+  border-color:#F58220;
+}
+.dropzone.dragover{
+  background:#F6DDB8;
+  border-color:#F58220;
+}
+.dropzone input{
+  position:absolute;
+  width:1px;
+  height:1px;
+  opacity:0;
+  overflow:hidden;
+}
+.drop-title{
+  font-size:1.8rem;
+  font-weight:600;
+  color:#12284C;
+}
+.drop-sub{
+  margin-top:6px;
+  font-size:1.2rem;
+  color:#5A5A5A;
+}
+.drop-file{
+  margin-top:12px;
+  font-weight:800;
+  color:#237A55;
+}
+
 .results {
   display: none;
   margin-top: 20px;
-  padding: 16px;
+  padding: 28px;
+  font-size: 1.2rem;
   background: var(--blue-pale);
   border-radius: 14px;
 }
@@ -172,7 +225,7 @@ input[type=file]::file-selector-button {
 }
 
 .result-card .score {
-  font-size: 3rem;
+  font-size: 4.5rem;
   font-weight: 800;
   line-height: 1;
 }
@@ -189,6 +242,7 @@ input[type=file]::file-selector-button {
   margin-top: 12px;
   padding: 8px 20px;
   border-radius: 999px;
+  font-size: 1.3rem;
   font-weight: 800;
 }
 
@@ -243,4 +297,3 @@ input[type=file]::file-selector-button {
   font-size: 0.9rem;
   color: #3F5273;
 }
-
