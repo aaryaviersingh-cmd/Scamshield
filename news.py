@@ -6,10 +6,12 @@ import json
 import os
 import time
 import datetime
+import traceback
 
 app = Flask(__name__)
 
-groq = Groq(api_key=os.environ.get("GROQ_API_KEY", "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"))
+api_key = os.environ.get("GROQ_API_KEY", "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 ").strip()
+groq = Groq(api_key=api_key)
 
 MODEL = "openai/gpt-oss-120b"
 NEWS_URL = "https://news.google.com/rss/search?q=scam+fraud+deepfake+older+adults+when:14d&hl=en-US&gl=US&ceid=US:en"
@@ -64,6 +66,7 @@ def get_news():
         messages=[{"role": "user", "content": prompt}]
     )
 
+    # the model sometimes adds extra words around the json, so grab just the { } part
     text = reply.choices[0].message.content or ""
     picked = json.loads(text[text.find("{"):text.rfind("}") + 1])["stories"]
 
@@ -91,6 +94,7 @@ def news():
     try:
         return jsonify(get_news())
     except Exception as error:
+        traceback.print_exc()
         print("News failed:", error)
         if cache["data"]:
             return jsonify(cache["data"])
@@ -98,4 +102,4 @@ def news():
 
 
 if __name__ == "__main__":
-    app.run(port=5002)
+    app.run(host="0.0.0.0", port=5002)
