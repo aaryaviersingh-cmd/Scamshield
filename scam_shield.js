@@ -1,3 +1,5 @@
+const API = 'http://' + (window.location.hostname || 'localhost') + ':5001';
+const NEWS_API = window.location.protocol === 'file:' ? 'http://localhost:5002' : 'http://' + window.location.hostname + ':5002';
 
 const tabButtons = document.querySelectorAll('.tab');
 const allPanels = document.querySelectorAll('.panel');
@@ -102,11 +104,13 @@ async function runCheck(button) {
     const data = await response.json();
 
     if (data.error) {
+      console.log('Server sent an error:', data.error);
       box.textContent = 'Oops, something went wrong on my end. Please try again.';
       return;
     }
     box.innerHTML = buildResult(data);
   } catch (error) {
+    console.log('Check failed:', error);
     box.textContent = "I couldn't connect. Please make sure the server is running.";
   }
 }
@@ -211,6 +215,7 @@ async function loadNews() {
 
     box.innerHTML = html;
   } catch (error) {
+    console.log('News failed:', error);
     box.textContent = "I couldn't connect to load the news. Make sure the server is running.";
   }
 }
