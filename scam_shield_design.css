@@ -11,10 +11,11 @@
   --cream: #f9f9f7;
 }
 #img{
-  position: relative;
-  left:40%;
-  width:600px;
-  height:auto;
+  display: block;
+  margin: 0 auto;
+  width: clamp(160px, 40vw, 600px);
+  max-width: 100%;
+  height: auto;
 }
 
 body {
@@ -88,8 +89,8 @@ main {
 }
 
 main h2 {
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
-  margin: 0 0 20px;
+  font-size: clamp(2.2rem, 3vw, 3.2rem);
+  margin: 0 0 24px;
 }
 
 .panel {
@@ -103,17 +104,17 @@ main h2 {
 textarea,
 input[type=text] {
   width: 100%;
-  padding: 24px;
+  padding: 30px;
   font: inherit;
-  font-size: 1.3rem;
+  font-size: 1.6rem;
   color: var(--blue-dark);
   background: #fff;
   border: 2px solid #D7DEEA;
-  border-radius: 18px;
+  border-radius: 20px;
 }
 
 textarea {
-  min-height: 260px;
+  min-height: 340px;
 }
 
 textarea:focus,
@@ -140,15 +141,15 @@ input[type=file]::file-selector-button {
 
 .btn {
   width: 100%;
-  margin-top: 20px;
-  padding: 26px;
+  margin-top: 24px;
+  padding: 34px;
   background:linear-gradient(to right,var(--orange),#f1b04c) ;
   color: var(--blue-dark);
   border: none;
-  border-radius: 18px;
+  border-radius: 20px;
   font: inherit;
   font-weight: 800;
-  font-size: 1.5rem;
+  font-size: 1.9rem;
   cursor: pointer;
 }
 
@@ -165,7 +166,7 @@ input[type=file]::file-selector-button {
   position:relative;
   display:block;
   text-align:center;
-  padding:90px 20px;
+  padding:120px 20px;
   background:#FBF1E3;
   border:3px dashed #E2B97C;
   border-radius:24px;
@@ -186,17 +187,18 @@ input[type=file]::file-selector-button {
   overflow:hidden;
 }
 .drop-title{
-  font-size:1.8rem;
+  font-size:2.2rem;
   font-weight:600;
   color:#12284C;
 }
 .drop-sub{
-  margin-top:6px;
-  font-size:1.2rem;
+  margin-top:8px;
+  font-size:1.5rem;
   color:#5A5A5A;
 }
 .drop-file{
   margin-top:12px;
+  font-size:1.2rem;
   font-weight:800;
   color:#237A55;
 }
@@ -211,11 +213,11 @@ input[type=file]::file-selector-button {
 
 .results {
   display: none;
-  margin-top: 20px;
-  padding: 28px;
-  font-size: 1.2rem;
+  margin-top: 24px;
+  padding: 32px;
+  font-size: 1.4rem;
   background: var(--blue-pale);
-  border-radius: 14px;
+  border-radius: 16px;
 }
 
 .results.show {
@@ -224,7 +226,7 @@ input[type=file]::file-selector-button {
 
 .result-card {
   text-align: center;
-  padding: 24px;
+  padding: 28px;
   border-radius: 18px;
   background: #fff;
   border: 3px solid #12284C;
@@ -232,14 +234,14 @@ input[type=file]::file-selector-button {
 }
 
 .result-card .score {
-  font-size: 4.5rem;
+  font-size: 5rem;
   font-weight: 800;
   line-height: 1;
 }
 
 .result-card .score small {
   display: block;
-  font-size: 1rem;
+  font-size: 1.15rem;
   font-weight: 600;
   color: #3F5273;
 }
@@ -247,15 +249,15 @@ input[type=file]::file-selector-button {
 .result-card .pill {
   display: inline-block;
   margin-top: 12px;
-  padding: 8px 20px;
+  padding: 8px 22px;
   border-radius: 999px;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: 800;
 }
 
 .result-card .summary {
   margin: 16px 0 0;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   line-height: 1.5;
 }
 
@@ -287,32 +289,33 @@ input[type=file]::file-selector-button {
 }
 
 .results h3 {
-  margin: 18px 0 6px;
+  margin: 20px 0 8px;
+  font-size: 1.7rem;
 }
 
 .results ul {
   margin: 0;
-  padding-left: 22px;
+  padding-left: 24px;
 }
 
 .results li {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .results .note {
-  margin-top: 18px;
-  font-size: 0.9rem;
+  margin-top: 20px;
+  font-size: 1.05rem;
   color: #3F5273;
 }
 
 .layout {
   display: grid;
-  grid-template-columns: minmax(260px, 340px) minmax(0, 1000px) minmax(260px, 340px);
-  justify-content: center;
-  gap: clamp(32px, 4vw, 72px);
-  max-width: 2000px;
+  grid-template-columns: minmax(320px, 560px) minmax(560px, 1200px) minmax(320px, 560px);
+  justify-content: space-between;
+  column-gap: clamp(48px, 5vw, 100px);
+  max-width: 2800px;
   margin: 0 auto;
-  padding: 64px 32px 80px;
+  padding: 40px clamp(20px, 2vw, 40px) 80px;
   align-items: start;
 }
 
@@ -324,10 +327,10 @@ input[type=file]::file-selector-button {
 
 .side {
   position: sticky;
-  top: 24px;
-  max-height: calc(100vh - 48px);
+  top: 20px;
+  max-height: calc(100vh - 40px);
   overflow-y: auto;
-  padding: 20px 22px;
+  padding: 24px 26px;
   background: #FFFDF8;
   border: 1px solid #EDE3CF;
   border-radius: 24px;
@@ -341,18 +344,18 @@ input[type=file]::file-selector-button {
 }
 
 .side h3 {
-  margin: 0 0 12px;
-  font-size: 1.2rem;
+  margin: 0 0 16px;
+  font-size: 1.8rem;
   font-weight: 800;
 }
 
 .tip {
-  margin-bottom: 10px;
-  padding-bottom: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
   border-bottom: 1px dashed #E7DCC6;
-  font-size: 0.9rem;
-  line-height: 1.4;
-  color: #4A5B78;
+  font-size: 1.25rem;
+  line-height: 1.55;
+  color: #34445F;
 }
 
 .tip:last-child {
@@ -364,13 +367,13 @@ input[type=file]::file-selector-button {
 .tip b {
   display: inline;
   margin-right: 4px;
-  font-size: 0.9rem;
+  font-size: 1.25rem;
   color: var(--orange-deep);
 }
 
 .story {
-  margin-bottom: 12px;
-  padding-bottom: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
   border-bottom: 1px dashed #CFDCF0;
 }
 
@@ -381,34 +384,35 @@ input[type=file]::file-selector-button {
 }
 
 .story h4 {
-  margin: 0 0 6px;
-  font-size: 1.05rem;
+  margin: 0 0 8px;
+  font-size: 1.4rem;
   line-height: 1.35;
 }
 
 .story p {
   margin: 0;
-  font-size: 0.95rem;
-  color: #4A5B78;
+  font-size: 1.25rem;
+  line-height: 1.55;
+  color: #34445F;
 }
 
 .news-note {
-  margin: 0 0 12px;
-  font-size: 0.85rem;
-  color: #3F5273;
+  margin: 0 0 14px;
+  font-size: 1.05rem;
+  color: #34445F;
 }
 
 .news-sources {
   margin: 0;
-  padding-left: 20px;
-  font-size: 0.9rem;
+  padding-left: 22px;
+  font-size: 1.15rem;
 }
 
 .news-sources a {
   color: var(--blue);
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1450px) {
   .layout {
     grid-template-columns: 1fr;
     padding: 40px 20px 60px;
