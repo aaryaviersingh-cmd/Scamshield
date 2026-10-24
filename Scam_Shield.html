@@ -20,6 +20,19 @@
   <button class="tab" data-panel="video">Video</button>
 </nav>
 
+<div class="layout">
+
+<aside class="side">
+  <h3>How to spot a scam</h3>
+  <div class="tip"><b>1. Slow down.</b>Scammers want you to rush. Real companies will give you time.</div>
+  <div class="tip"><b>2. Never pay with gift cards.</b>Gift cards, wire transfers and crypto are how scammers get paid, because they can't be taken back.</div>
+  <div class="tip"><b>3. Caller ID can be faked.</b>If someone calls claiming to be your bank or a relative, hang up and call back on a number you already trust.</div>
+  <div class="tip"><b>4. Don't click surprise links.</b>Type the company's website yourself instead of using a link in a text or email.</div>
+  <div class="tip"><b>5. Never share a code.</b>Nobody real will ask you to read out a verification code sent to your phone.</div>
+  <div class="tip"><b>6. Pick a family safe word.</b>If a "relative" calls in an emergency, ask for the word. A cloned voice won't know it.</div>
+  <div class="tip"><b>7. Ask someone you trust.</b>Talk to a family member or friend before you send money or share information.</div>
+</aside>
+
 <main>
   <section class="panel active" id="panel-link">
     <h2>Check a link</h2>
@@ -40,6 +53,7 @@
     <label class="dropzone">
       <div class="drop-title">Drag your QR code image here</div>
       <div class="drop-sub">or <u>select a file</u></div>
+      <img class="drop-preview" alt="Preview of your image">
       <div class="drop-file"></div>
       <input type="file" id="qrInput" accept="image/*">
     </label>
@@ -78,5 +92,12 @@
     <div id="videoResults" class="results"></div>
   </section>
 </main>
+
+<aside class="side">
+  <h3>Latest scam news</h3>
+  <div id="newsFeed">Looking up the latest news...</div>
+</aside>
+
+</div>
 </body>
 </html>
