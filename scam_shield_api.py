@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from google import genai
 from google.genai import types
 import cv2
@@ -9,7 +9,11 @@ import time
 
 app = Flask(__name__)
 
-client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY", "AQ.Ab8RN6LSodtNySEaXq7ePFgosBzWPvzmxBupT_U_GKDPUcB_sQ"))
+BASE_FOLDER = os.path.dirname(os.path.abspath(__file__))
+
+PAGE_FILES = ["index.html", "scam_shield_design.css", "scam_shield.js", "scam_shield_logo.png"]
+
+client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY", "AQ.Ab8RN6JweaGyxmtVhQHacjB1vfVBGgkf9d4X1I6woO3sSvCxTg"))
 
 MODEL = "gemini-3.8-flash"
 
@@ -119,5 +123,17 @@ def analyze():
         return jsonify({"error": "Couldn't read the AI's answer"}), 500
 
 
+@app.route("/")
+def home():
+    return send_from_directory(BASE_FOLDER, "index.html")
+
+
+@app.route("/<name>")
+def page_file(name):
+    if name in PAGE_FILES:
+        return send_from_directory(BASE_FOLDER, name)
+    return "Not found", 404
+
+
 if __name__ == "__main__":
-    app.run(port=5001)
+    app.run(host="0.0.0.0", port=5001)
