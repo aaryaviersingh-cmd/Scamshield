@@ -14,8 +14,8 @@ BASE_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 PAGE_FILES = ["index.html", "scam_shield_design.css", "scam_shield.js", "scam_shield_logo.png"]
 
-client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY", "AQ.Ab8RN6JweaGyxmtVhQHacjB1vfVBGgkf9d4X1I6woO3sSvCxTg"))
-groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY", "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").strip())
+client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY", ""))
+groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY", "").strip())
 
 MODELS = ["gemini-3.6-flash"]
 GROQ_MODEL = "openai/gpt-oss-120b"
