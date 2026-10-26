@@ -1,21 +1,27 @@
 from flask import Flask, request, jsonify, send_from_directory
 from google import genai
 from google.genai import types
+from groq import Groq
 import cv2
 import numpy as np
+import hashlib
 import json
 import os
 import time
 
 app = Flask(__name__)
-
 BASE_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 PAGE_FILES = ["index.html", "scam_shield_design.css", "scam_shield.js", "scam_shield_logo.png"]
 
 client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY", "AQ.Ab8RN6JweaGyxmtVhQHacjB1vfVBGgkf9d4X1I6woO3sSvCxTg"))
+groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY", "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").strip())
 
-MODEL = "gemini-3.8-flash"
+MODELS = ["gemini-3.6-flash"]
+GROQ_MODEL = "openai/gpt-oss-120b"
+
+answer_cache = {}
+
 
 @app.after_request
 def allow_page(response):
@@ -63,16 +69,59 @@ def read_qr(image_bytes):
     return address
 
 
+def ask_gemini(parts):
+    for model in MODELS:
+        for attempt in range(2):
+            try:
+                reply = client.models.generate_content(
+                    model=model,
+                    contents=parts,
+                    config=types.GenerateContentConfig(response_mime_type="application/json")
+                )
+                return reply.text
+            except Exception as error:
+                print(model, "attempt", attempt + 1, "failed:", error)
+                time.sleep(2)
+    return None
+
+
+def ask_groq(prompt):
+    try:
+        reply = groq_client.chat.completions.create(
+            model=GROQ_MODEL,
+            messages=[{"role": "user", "content": prompt}]
+        )
+        return reply.choices[0].message.content
+    except Exception as error:
+        print("Groq fallback failed:", error)
+        return None
+
+
+def to_data(reply_text):
+    start = reply_text.find("{")
+    end = reply_text.rfind("}")
+    return json.loads(reply_text[start:end + 1])
+
+
 @app.route("/analyze", methods=["POST"])
 def analyze():
     kind = request.form.get("type", "text")
     text = request.form.get("text", "")
     file = request.files.get("file")
 
+    print("Check request received:", kind)
+
     if not text and not file:
         return jsonify({"error": "Nothing to check"}), 400
 
     file_bytes = file.read() if file else None
+
+    cache_key = None
+    if not file_bytes:
+        cache_key = hashlib.md5((kind + text).encode()).hexdigest()
+        if cache_key in answer_cache:
+            print("Answered from memory")
+            return jsonify(answer_cache[cache_key])
 
     prompt = (
         "You are a friendly helper who checks things for older adults before they trust them. "
@@ -84,6 +133,8 @@ def analyze():
     if text:
         prompt += "\n\n<content>" + text + "</content>"
 
+    groq_ok = file_bytes is None
+
     if kind == "qr" and file_bytes:
         address = read_qr(file_bytes)
         if address:
@@ -91,6 +142,7 @@ def analyze():
                 "\n\nA QR reader decoded this code. It points to the address below. "
                 "Judge that address.\n<content>" + address + "</content>"
             )
+            groq_ok = True
         else:
             prompt += (
                 "\n\nA QR reader could not read this image. Say kindly that you couldn't "
@@ -101,26 +153,25 @@ def analyze():
     if file_bytes:
         parts.append(types.Part.from_bytes(data=file_bytes, mime_type=file.mimetype))
 
-    response = None
-    for attempt in range(3):
-        try:
-            response = client.models.generate_content(
-                model=MODEL,
-                contents=parts,
-                config=types.GenerateContentConfig(response_mime_type="application/json")
-            )
-            break
-        except Exception as error:
-            print("Attempt", attempt + 1, "failed:", error)
-            time.sleep(2)
+    reply_text = ask_gemini(parts)
 
-    if response is None:
+    if reply_text is None and groq_ok:
+        print("Gemini is busy, trying Groq")
+        reply_text = ask_groq(prompt)
+
+    if reply_text is None:
         return jsonify({"error": "The AI is busy or the key isn't working"}), 503
 
     try:
-        return jsonify(json.loads(response.text))
-    except (json.JSONDecodeError, TypeError):
+        data = to_data(reply_text)
+    except Exception as error:
+        print("Couldn't read the AI's answer:", error)
         return jsonify({"error": "Couldn't read the AI's answer"}), 500
+
+    if cache_key:
+        answer_cache[cache_key] = data
+
+    return jsonify(data)
 
 
 @app.route("/")
