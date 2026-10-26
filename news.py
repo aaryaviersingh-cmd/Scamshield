@@ -10,7 +10,7 @@ import traceback
 
 app = Flask(__name__)
 
-api_key = os.environ.get("GROQ_API_KEY", "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 ").strip()
+api_key = os.environ.get("GROQ_API_KEY", "").strip()
 groq = Groq(api_key=api_key)
 
 MODEL = "openai/gpt-oss-120b"
